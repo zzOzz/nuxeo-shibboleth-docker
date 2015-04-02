@@ -31,9 +31,16 @@ RUN apt-get update && apt-get install -y \
 #ADD ./CERT-CA.cer /etc/ssl/certs/java/CERT-CA.cer
 #RUN (keytool -import -trustcacerts -alias ca-cert -file /etc/ssl/certs/java/CERT-CA.cer -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt)
 
+
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ADD apache-sp.conf /etc/apache2/sites-available/apache-sp.conf
-ADD shibboleth2.xml /etc/shibboleth/shibboleth2.xml
+
+#Template with mustache mo
+ADD mo /tmp/mo
+ADD apache-sp.tmpl /etc/apache2/sites-available/apache-sp.tmpl
+RUN cat /etc/apache2/sites-available/apache-sp.tmpl |/tmp/mo >/etc/apache2/sites-available/apache-sp.conf
+ADD shibboleth2.tmpl /etc/shibboleth/shibboleth2.tmpl
+RUN cat /etc/shibboleth/shibboleth2.tmpl |/tmp/mo >/etc/shibboleth/shibboleth2.xml
+
 ADD attribute-map.xml /etc/shibboleth/attribute-map.xml
 ADD sp-cert.pem /etc/shibboleth/sp-cert.pem
 ADD sp-key.pem /etc/shibboleth/sp-key.pem
@@ -50,7 +57,7 @@ EXPOSE 443
 ENTRYPOINT [ "supervisord" ]
 
 #docker run -i -t shibbolethspudl_shibbolethsp /bin/bash
-#https://nuxeo.universite-lyon.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fnuxeo.universite-lyon.fr%2Fnuxeo%2Flogout
+#https://nuxeo.universite-lyon.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fnuxeo.universite-lyon.fr%2Fnuxeo%2F
 
 # Update/Upgrad all packages on each build
 ONBUILD RUN apt-get update && apt-get upgrade -y

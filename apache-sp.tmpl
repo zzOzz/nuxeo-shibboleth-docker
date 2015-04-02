@@ -12,7 +12,7 @@
   ProxyPass /nuxeo/ http://nuxeo:8080/nuxeo/
   ProxyPassReverse /nuxeo/ http://nuxeo:8080/nuxeo
   ProxyPreserveHost On
-  RequestHeader append nuxeo-virtual-host "https://nuxeo.universite-lyon.fr/"
+  RequestHeader append nuxeo-virtual-host "https://{{VIRTUAL_HOST}}/"
 
   #Redirect / /nuxeo/
   <Location "/nuxeo">
