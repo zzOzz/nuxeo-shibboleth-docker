@@ -15,7 +15,7 @@ nuxeo:
   domainname: ad.universite-lyon.fr
   environment:
     PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile"
-    PACKAGES2: "nuxeo-dam-compat"
-    TEMPLATES: "postgresql,drive,dam,/platform/etc/data/conf/templates/shibboleth"
+    PACKAGES2: "nuxeo-dam-compat /platform/etc/data/marketplace/marketplace-CustomLoginUDL-1.0.2-SNAPSHOT.zip"
+    TEMPLATES: "postgresql,dam,/platform/etc/data/conf/templates/shibboleth"
   volumes:
     - /data-pp:/platform/etc/data

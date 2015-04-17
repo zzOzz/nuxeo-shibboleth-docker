@@ -58,6 +58,7 @@ ENTRYPOINT [ "supervisord" ]
 
 #docker run -i -t shibbolethspudl_shibbolethsp /bin/bash
 #https://nuxeo.universite-lyon.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fnuxeo.universite-lyon.fr%2Fnuxeo%2F
+#https://ish.universite-lyon.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fish.universite-lyon.fr%2Fnuxeo%2F
 
 # Update/Upgrad all packages on each build
 ONBUILD RUN apt-get update && apt-get upgrade -y
