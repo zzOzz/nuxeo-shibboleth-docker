@@ -61,4 +61,4 @@ ENTRYPOINT [ "supervisord" ]
 #https://ish.universite-lyon.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fish.universite-lyon.fr%2Fnuxeo%2F
 
 # Update/Upgrad all packages on each build
-ONBUILD RUN apt-get update && apt-get upgrade -y
+ONBUILD RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::=--force-confdef
