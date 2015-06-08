@@ -14,8 +14,9 @@ nuxeo:
   image: nuxeodocker_nuxeo:6.0-HF11
   domainname: ad.universite-lyon.fr
   environment:
-    PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile"
-    PACKAGES2: "pres-lyon-2.1.16-sans_recherche_personnalisee /platform/etc/data/marketplace/marketplace-CustomLoginUDL-1.0.2-SNAPSHOT.zip"
-    TEMPLATES: "postgresql,/platform/etc/data/conf/templates/shibboleth"
+    PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile nuxeo-agenda"
+#    PACKAGES2: "pres-lyon-2.1.28 /platform/etc/data/marketplace/marketplace-treeexplore-1.0.0-SNAPSHOT.zip /platform/etc/data/marketplace/marketplace-CustomLoginUDL-1.0.4-SNAPSHOT.zip"
+    PACKAGES2: "pres-lyon-2.1.28 /platform/etc/data/marketplace/marketplace-CustomLoginUDL-1.0.4-SNAPSHOT.zip"
+    TEMPLATES: "postgresql,drive,/platform/etc/data/conf/templates/shibboleth"
   volumes:
     - /data-pp:/platform/etc/data
