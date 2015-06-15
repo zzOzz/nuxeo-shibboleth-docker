@@ -14,7 +14,7 @@ nuxeo:
   image: nuxeodocker_nuxeo
   domainname: ad.universite-lyon.fr
   environment:
-    PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile"
+    PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile nuxeo-platform-importer easyshare nuxeo-platform-user-registration"
     PACKAGES2: ""
     TEMPLATES: "postgresql,dam,drive,/platform/etc/data/conf/templates/shibboleth"
   volumes:

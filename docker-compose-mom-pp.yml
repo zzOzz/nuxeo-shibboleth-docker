@@ -14,7 +14,7 @@ nuxeo:
   image: nuxeodocker_nuxeo
   domainname: ad.universite-lyon.fr
   environment:
-    PACKAGES: "nuxeo-drive nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile"
+    PACKAGES: "nuxeo-drive nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile easyshare"
     TEMPLATES: "postgresql,drive"
   volumes:
     - /mom-data-pp:/platform/etc/data
