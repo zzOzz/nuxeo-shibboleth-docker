@@ -11,11 +11,8 @@ shibbolethsp:
     - "443"
 nuxeo:
   hostname: nuxeo-pp
-  image: nuxeodocker_nuxeo:6.0-HF11
   domainname: ad.universite-lyon.fr
   environment:
-    PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile"
-    PACKAGES2: "pres-lyon-2.1.22 /platform/etc/data/marketplace/marketplace-CustomLoginUDL-1.0.3-SNAPSHOT.zip"
     TEMPLATES: "postgresql,drive,/platform/etc/data/conf/templates/shibboleth"
   volumes:
     - /data-pp:/platform/etc/data
