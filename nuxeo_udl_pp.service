@@ -1,0 +1,15 @@
+[Unit]
+Description=Nuxeo Server UDL preprod
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill udlpp_nuxeo_1
+ExecStartPre=-/usr/bin/docker kill udlpp_shibbolethsp_1
+ExecStartPre=-/usr/bin/docker rm udlpp_nuxeo_1
+ExecStartPre=-/usr/bin/docker rm udlpp_shibbolethsp_1
+ExecStart=/data/docker/docker-compose -p udlpp -f /data/docker/nuxeo/nuxeo-shibboleth-docker/docker-compose-udl-pp.yml up
+
+[Install]
+WantedBy=multi-user.target
