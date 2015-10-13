@@ -42,8 +42,8 @@ ADD shibboleth2.tmpl /etc/shibboleth/shibboleth2.tmpl
 RUN cat /etc/shibboleth/shibboleth2.tmpl |/tmp/mo >/etc/shibboleth/shibboleth2.xml
 
 ADD attribute-map.xml /etc/shibboleth/attribute-map.xml
-ADD sp-cert.pem /etc/shibboleth/sp-cert.pem
-ADD sp-key.pem /etc/shibboleth/sp-key.pem
+#ADD sp-cert.pem /etc/shibboleth/sp-cert.pem
+#ADD sp-key.pem /etc/shibboleth/sp-key.pem
 
 RUN a2enmod ssl
 RUN a2enmod proxy
@@ -52,6 +52,8 @@ RUN a2enmod xml2enc
 RUN a2enmod proxy_http
 RUN a2dissite 000-default
 RUN a2ensite apache-sp
+
+VOLUME ["/etc/shibboleth/sp-cert.pem","/etc/shibboleth/sp-key.pem"]
 
 EXPOSE 443
 ENTRYPOINT [ "supervisord" ]

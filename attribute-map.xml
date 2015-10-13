@@ -1,65 +1,65 @@
-<Attributes xmlns="urn:mace:shibboleth:2.0:attribute-map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Attributes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mace:shibboleth:2.0:attribute-map">
 
-    <!--
+<!--
     The mappings are a mix of SAML 1.1 and SAML 2.0 attribute names agreed to within the Shibboleth
     community. The non-OID URNs are SAML 1.1 names and most of the OIDs are SAML 2.0 names, with a
     few exceptions for newer attributes where the name is the same for both versions. You will
     usually want to uncomment or map the names for both SAML versions as a unit.
     -->
-    
-    <!-- First some useful eduPerson attributes that many sites might use. -->
-    
-    <Attribute name="urn:mace:dir:attribute-def:eduPersonPrincipalName" id="eduPersonPrincipalName">
-        <AttributeDecoder xsi:type="ScopedAttributeDecoder"/>
-    </Attribute>
-    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6" id="eduPersonPrincipalName">
-        <AttributeDecoder xsi:type="ScopedAttributeDecoder"/>
-    </Attribute>
-    
-    <Attribute name="urn:mace:dir:attribute-def:eduPersonScopedAffiliation" id="affiliation">
-        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
-    </Attribute>
-    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.9" id="affiliation">
-        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
-    </Attribute>
-    
-    <Attribute name="urn:mace:dir:attribute-def:eduPersonAffiliation" id="unscoped-affiliation">
-        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
-    </Attribute>
-    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.1" id="unscoped-affiliation">
-        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
-    </Attribute>
-    
-    <Attribute name="urn:mace:dir:attribute-def:eduPersonEntitlement" id="entitlement"/>
-    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" id="entitlement"/>
 
-    <!-- A persistent id attribute that supports personalized anonymous access. -->
-    
-    <!-- First, the deprecated/incorrect version, decoded as a scoped string: -->
-    <Attribute name="urn:mace:dir:attribute-def:eduPersonTargetedID" id="targeted-id">
-        <AttributeDecoder xsi:type="ScopedAttributeDecoder"/>
-        <!-- <AttributeDecoder xsi:type="NameIDFromScopedAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/> -->
-    </Attribute>
-    
-    <!-- Second, an alternate decoder that will decode the incorrect form into the newer form. -->
-    <!--
+<!-- First some useful eduPerson attributes that many sites might use. -->
+
+  <Attribute id="eduPersonPrincipalName" name="urn:mace:dir:attribute-def:eduPersonPrincipalName">
+    <AttributeDecoder xsi:type="ScopedAttributeDecoder"/>
+  </Attribute>
+  <Attribute id="eduPersonPrincipalName" name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6">
+    <AttributeDecoder xsi:type="ScopedAttributeDecoder"/>
+  </Attribute>
+
+  <Attribute id="affiliation" name="urn:mace:dir:attribute-def:eduPersonScopedAffiliation">
+    <AttributeDecoder caseSensitive="false" xsi:type="ScopedAttributeDecoder"/>
+  </Attribute>
+  <Attribute id="affiliation" name="urn:oid:1.3.6.1.4.1.5923.1.1.1.9">
+    <AttributeDecoder caseSensitive="false" xsi:type="ScopedAttributeDecoder"/>
+  </Attribute>
+
+  <Attribute id="unscoped-affiliation" name="urn:mace:dir:attribute-def:eduPersonAffiliation">
+    <AttributeDecoder caseSensitive="false" xsi:type="StringAttributeDecoder"/>
+  </Attribute>
+  <Attribute id="unscoped-affiliation" name="urn:oid:1.3.6.1.4.1.5923.1.1.1.1">
+    <AttributeDecoder caseSensitive="false" xsi:type="StringAttributeDecoder"/>
+  </Attribute>
+
+  <Attribute id="entitlement" name="urn:mace:dir:attribute-def:eduPersonEntitlement"/>
+  <Attribute id="entitlement" name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7"/>
+
+<!-- A persistent id attribute that supports personalized anonymous access. -->
+
+<!-- First, the deprecated/incorrect version, decoded as a scoped string: -->
+  <Attribute id="targeted-id" name="urn:mace:dir:attribute-def:eduPersonTargetedID">
+    <AttributeDecoder xsi:type="ScopedAttributeDecoder"/>
+<!-- <AttributeDecoder xsi:type="NameIDFromScopedAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/> -->
+  </Attribute>
+
+<!-- Second, an alternate decoder that will decode the incorrect form into the newer form. -->
+<!--
     <Attribute name="urn:mace:dir:attribute-def:eduPersonTargetedID" id="persistent-id">
         <AttributeDecoder xsi:type="NameIDFromScopedAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
     </Attribute>
     -->
-    
-    <!-- Third, the new version (note the OID-style name): -->
-    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.10" id="persistent-id">
-        <AttributeDecoder xsi:type="NameIDAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
-    </Attribute>
 
-    <!-- Fourth, the SAML 2.0 NameID Format: -->
-    <Attribute name="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent" id="persistent-id">
-        <AttributeDecoder xsi:type="NameIDAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
-    </Attribute>
-    
-    <!-- Some more eduPerson attributes, uncomment these to use them... -->
-    <!--
+<!-- Third, the new version (note the OID-style name): -->
+  <Attribute id="persistent-id" name="urn:oid:1.3.6.1.4.1.5923.1.1.1.10">
+    <AttributeDecoder defaultQualifiers="true" formatter="$NameQualifier!$SPNameQualifier!$Name" xsi:type="NameIDAttributeDecoder"/>
+  </Attribute>
+
+<!-- Fourth, the SAML 2.0 NameID Format: -->
+  <Attribute id="persistent-id" name="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent">
+    <AttributeDecoder defaultQualifiers="true" formatter="$NameQualifier!$SPNameQualifier!$Name" xsi:type="NameIDAttributeDecoder"/>
+  </Attribute>
+
+<!-- Some more eduPerson attributes, uncomment these to use them... -->
+<!--
     <Attribute name="urn:mace:dir:attribute-def:eduPersonPrimaryAffiliation" id="primary-affiliation">
         <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
     </Attribute>
@@ -77,68 +77,162 @@
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.3" id="org-dn"/>
 
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.11" id="assurance"/>
-    
+
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.5.1.1" id="member"/>
-    
+
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.6.1.1" id="eduCourseOffering"/>
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.6.1.2" id="eduCourseMember"/>
     -->
 
-    <!-- Examples of LDAP-based attributes, uncomment to use these... -->
-    
-    <Attribute name="urn:mace:dir:attribute-def:cn" id="cn"/>
-    <Attribute name="urn:mace:dir:attribute-def:sn" id="sn"/>
-    <Attribute name="urn:mace:dir:attribute-def:givenName" id="givenName"/>
-    <Attribute name="urn:mace:dir:attribute-def:displayName" id="displayName"/>
-    <Attribute name="urn:mace:dir:attribute-def:mail" id="mail"/>
-    <Attribute name="urn:mace:dir:attribute-def:telephoneNumber" id="telephoneNumber"/>
-    <Attribute name="urn:mace:dir:attribute-def:title" id="title"/>
-    <Attribute name="urn:mace:dir:attribute-def:initials" id="initials"/>
-    <Attribute name="urn:mace:dir:attribute-def:description" id="description"/>
-    <Attribute name="urn:mace:dir:attribute-def:carLicense" id="carLicense"/>
-    <Attribute name="urn:mace:dir:attribute-def:departmentNumber" id="departmentNumber"/>
-    <Attribute name="urn:mace:dir:attribute-def:employeeNumber" id="employeeNumber"/>
-    <Attribute name="urn:mace:dir:attribute-def:employeeType" id="employeeType"/>
-    <Attribute name="urn:mace:dir:attribute-def:preferredLanguage" id="preferredLanguage"/>
-    <Attribute name="urn:mace:dir:attribute-def:manager" id="manager"/>
-    <Attribute name="urn:mace:dir:attribute-def:seeAlso" id="seeAlso"/>
-    <Attribute name="urn:mace:dir:attribute-def:facsimileTelephoneNumber" id="facsimileTelephoneNumber"/>
-    <Attribute name="urn:mace:dir:attribute-def:street" id="street"/>
-    <Attribute name="urn:mace:dir:attribute-def:postOfficeBox" id="postOfficeBox"/>
-    <Attribute name="urn:mace:dir:attribute-def:postalCode" id="postalCode"/>
-    <Attribute name="urn:mace:dir:attribute-def:st" id="st"/>
-    <Attribute name="urn:mace:dir:attribute-def:l" id="l"/>
-    <Attribute name="urn:mace:dir:attribute-def:o" id="o"/>
-    <Attribute name="urn:mace:dir:attribute-def:ou" id="ou"/>
-    <Attribute name="urn:mace:dir:attribute-def:businessCategory" id="businessCategory"/>
-    <Attribute name="urn:mace:dir:attribute-def:physicalDeliveryOfficeName" id="physicalDeliveryOfficeName"/>
+<!-- Examples of LDAP-based attributes, uncomment to use these... -->
 
-    <Attribute name="urn:oid:2.5.4.3" id="cn"/>
-    <Attribute name="urn:oid:2.5.4.4" id="sn"/>
-    <Attribute name="urn:oid:2.5.4.42" id="givenName"/>
-    <Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
-    <Attribute name="urn:oid:0.9.2342.19200300.100.1.3" id="mail"/>
-    <Attribute name="urn:oid:2.5.4.20" id="telephoneNumber"/>
-    <Attribute name="urn:oid:2.5.4.12" id="title"/>
-    <Attribute name="urn:oid:2.5.4.43" id="initials"/>
-    <Attribute name="urn:oid:2.5.4.13" id="description"/>
-    <Attribute name="urn:oid:2.16.840.1.113730.3.1.1" id="carLicense"/>
-    <Attribute name="urn:oid:2.16.840.1.113730.3.1.2" id="departmentNumber"/>
-    <Attribute name="urn:oid:2.16.840.1.113730.3.1.3" id="employeeNumber"/>
-    <Attribute name="urn:oid:2.16.840.1.113730.3.1.4" id="employeeType"/>
-    <Attribute name="urn:oid:2.16.840.1.113730.3.1.39" id="preferredLanguage"/>
-    <Attribute name="urn:oid:0.9.2342.19200300.100.1.10" id="manager"/>
-    <Attribute name="urn:oid:2.5.4.34" id="seeAlso"/>
-    <Attribute name="urn:oid:2.5.4.23" id="facsimileTelephoneNumber"/>
-    <Attribute name="urn:oid:2.5.4.9" id="street"/>
-    <Attribute name="urn:oid:2.5.4.18" id="postOfficeBox"/>
-    <Attribute name="urn:oid:2.5.4.17" id="postalCode"/>
-    <Attribute name="urn:oid:2.5.4.8" id="st"/>
-    <Attribute name="urn:oid:2.5.4.7" id="l"/>
-    <Attribute name="urn:oid:2.5.4.10" id="o"/>
-    <Attribute name="urn:oid:2.5.4.11" id="ou"/>
-    <Attribute name="urn:oid:2.5.4.15" id="businessCategory"/>
-    <Attribute name="urn:oid:2.5.4.19" id="physicalDeliveryOfficeName"/>
-   
-<Attribute name="https://www.universite-lyon.fr/displayNameUDL" id="displayNameUDL"/>
+  <Attribute id="cn" name="urn:mace:dir:attribute-def:cn"/>
+  <Attribute id="sn" name="urn:mace:dir:attribute-def:sn"/>
+  <Attribute id="givenName" name="urn:mace:dir:attribute-def:givenName"/>
+  <Attribute id="displayName" name="urn:mace:dir:attribute-def:displayName"/>
+  <Attribute id="mail" name="urn:mace:dir:attribute-def:mail"/>
+  <Attribute id="telephoneNumber" name="urn:mace:dir:attribute-def:telephoneNumber"/>
+  <Attribute id="title" name="urn:mace:dir:attribute-def:title"/>
+  <Attribute id="initials" name="urn:mace:dir:attribute-def:initials"/>
+  <Attribute id="description" name="urn:mace:dir:attribute-def:description"/>
+  <Attribute id="carLicense" name="urn:mace:dir:attribute-def:carLicense"/>
+  <Attribute id="departmentNumber" name="urn:mace:dir:attribute-def:departmentNumber"/>
+  <Attribute id="employeeNumber" name="urn:mace:dir:attribute-def:employeeNumber"/>
+  <Attribute id="employeeType" name="urn:mace:dir:attribute-def:employeeType"/>
+  <Attribute id="preferredLanguage" name="urn:mace:dir:attribute-def:preferredLanguage"/>
+  <Attribute id="manager" name="urn:mace:dir:attribute-def:manager"/>
+  <Attribute id="seeAlso" name="urn:mace:dir:attribute-def:seeAlso"/>
+  <Attribute id="facsimileTelephoneNumber" name="urn:mace:dir:attribute-def:facsimileTelephoneNumber"/>
+  <Attribute id="street" name="urn:mace:dir:attribute-def:street"/>
+  <Attribute id="postOfficeBox" name="urn:mace:dir:attribute-def:postOfficeBox"/>
+  <Attribute id="postalCode" name="urn:mace:dir:attribute-def:postalCode"/>
+  <Attribute id="st" name="urn:mace:dir:attribute-def:st"/>
+  <Attribute id="l" name="urn:mace:dir:attribute-def:l"/>
+  <Attribute id="o" name="urn:mace:dir:attribute-def:o"/>
+  <Attribute id="ou" name="urn:mace:dir:attribute-def:ou"/>
+  <Attribute id="businessCategory" name="urn:mace:dir:attribute-def:businessCategory"/>
+  <Attribute id="physicalDeliveryOfficeName" name="urn:mace:dir:attribute-def:physicalDeliveryOfficeName"/>
+
+  <Attribute id="cn" name="urn:oid:2.5.4.3"/>
+  <Attribute id="sn" name="urn:oid:2.5.4.4"/>
+  <Attribute id="givenName" name="urn:oid:2.5.4.42"/>
+  <Attribute id="displayName" name="urn:oid:2.16.840.1.113730.3.1.241"/>
+  <Attribute id="mail" name="urn:oid:0.9.2342.19200300.100.1.3"/>
+  <Attribute id="telephoneNumber" name="urn:oid:2.5.4.20"/>
+  <Attribute id="title" name="urn:oid:2.5.4.12"/>
+  <Attribute id="initials" name="urn:oid:2.5.4.43"/>
+  <Attribute id="description" name="urn:oid:2.5.4.13"/>
+  <Attribute id="carLicense" name="urn:oid:2.16.840.1.113730.3.1.1"/>
+  <Attribute id="departmentNumber" name="urn:oid:2.16.840.1.113730.3.1.2"/>
+  <Attribute id="employeeNumber" name="urn:oid:2.16.840.1.113730.3.1.3"/>
+  <Attribute id="employeeType" name="urn:oid:2.16.840.1.113730.3.1.4"/>
+  <Attribute id="preferredLanguage" name="urn:oid:2.16.840.1.113730.3.1.39"/>
+  <Attribute id="manager" name="urn:oid:0.9.2342.19200300.100.1.10"/>
+  <Attribute id="seeAlso" name="urn:oid:2.5.4.34"/>
+  <Attribute id="facsimileTelephoneNumber" name="urn:oid:2.5.4.23"/>
+  <Attribute id="street" name="urn:oid:2.5.4.9"/>
+  <Attribute id="postOfficeBox" name="urn:oid:2.5.4.18"/>
+  <Attribute id="postalCode" name="urn:oid:2.5.4.17"/>
+  <Attribute id="st" name="urn:oid:2.5.4.8"/>
+  <Attribute id="l" name="urn:oid:2.5.4.7"/>
+  <Attribute id="o" name="urn:oid:2.5.4.10"/>
+  <Attribute id="ou" name="urn:oid:2.5.4.11"/>
+  <Attribute id="businessCategory" name="urn:oid:2.5.4.15"/>
+  <Attribute id="physicalDeliveryOfficeName" name="urn:oid:2.5.4.19"/>
+<!--  Quelques attributs Supann 08  -->
+<!--  catégorie de métier, branche d'activité  -->
+  <Attribute id="supannActivite" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.2"/>
+  <Attribute id="supannActivite" name="urn:mace:cru.fr:attribute-def:supannActivite"/>
+<!--  autres téléphones  -->
+  <Attribute id="supannAutreTelephone" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.12"/>
+  <Attribute id="supannAutreTelephone" name="urn:mace:cru.fr:attribute-def:supannAutreTelephone"/>
+<!--  civilité  -->
+  <Attribute id="supannCivilite" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.4"/>
+  <Attribute id="supannCivilite" name="urn:mace:cru.fr:attribute-def:supannCivilite"/>
+<!--
+  identifiant de l'employé dans le logiciel de gestion du personnel de l'établissement
+ -->
+  <Attribute id="supannEmpId" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.11"/>
+  <Attribute id="supannEmpId" name="urn:mace:cru.fr:attribute-def:supannEmpId"/>
+<!--
+  représente la ou les affectations de la personne dans un établissement, une composante, service, etc.
+ -->
+  <Attribute id="supannEntiteAffectation" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.8"/>
+  <Attribute id="supannEntiteAffectation" name="urn:mace:cru.fr:attribute-def:supannEntiteAffectation"/>
+<!--  affectation principale de la personne  -->
+  <Attribute id="supannEntiteAffectationPrincipale" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.13"/>
+  <Attribute id="supannEntiteAffectationPrincipale" name="urn:mace:cru.fr:attribute-def:supannEntiteAffectationPrincipale"/>
+<!--
+  établissement (ou “unité”) de rattachement administratif de la personne
+ -->
+  <Attribute id="supannEtablissement" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.14"/>
+  <Attribute id="supannEtablissement" name="urn:mace:cru.fr:attribute-def:supannEtablissement"/>
+<!--
+  rôle contextuel (relatif à une entité donnée). Rôle pouvant être structurel, électif, etc.
+ -->
+  <Attribute id="supannRoleEntite" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.24"/>
+  <Attribute id="supannRoleEntite" name="urn:mace:cru.fr:attribute-def:supannRoleEntite"/>
+<!--
+  rôle(s) générique(s) de la personne dans l'établissement
+ -->
+  <Attribute id="supannRoleGenerique" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.23"/>
+  <Attribute id="supannRoleGenerique" name="urn:mace:cru.fr:attribute-def:supannRoleGenerique"/>
+<!--  code INE pour les étudiants  -->
+  <Attribute id="supannCodeINE" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.9"/>
+  <Attribute id="supannCodeINE" name="urn:mace:cru.fr:attribute-def:supannCodeINE"/>
+<!--
+  l'année de début de l'année universitaire concernée
+ -->
+  <Attribute id="supannEtuAnneeInscription" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.25"/>
+  <Attribute id="supannEtuAnneeInscription" name="urn:mace:cru.fr:attribute-def:supannEtuAnneeInscription"/>
+<!--
+  type de cursus (L, M, D ou X...) ainsi que l'année dans le diplôme
+ -->
+  <Attribute id="supannEtuCursusAnnee" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.26"/>
+  <Attribute id="supannEtuCursusAnnee" name="urn:mace:cru.fr:attribute-def:supannEtuCursusAnnee"/>
+<!--  diplôme préparé par l'étudiant  -->
+  <Attribute id="supannEtuDiplome" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.27"/>
+  <Attribute id="supannEtuDiplome" name="urn:mace:cru.fr:attribute-def:supannEtuDiplome"/>
+<!--
+  description générique du contenu d'un enseignement avec un fort niveau de granularité
+ -->
+  <Attribute id="supannEtuElementPedagogique" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.28"/>
+  <Attribute id="supannEtuElementPedagogique" name="urn:mace:cru.fr:attribute-def:supannEtuElementPedagogique"/>
+<!--
+  l'étape peut être considérée comme un fractionnement (semestre, année, etc.) dans le temps d'un enseignement conduisant à un diplôme
+ -->
+  <Attribute id="supannEtuEtape" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.29"/>
+  <Attribute id="supannEtuEtape" name="urn:mace:cru.fr:attribute-def:supannEtuEtape"/>
+<!--  identifiant de scolarité   -->
+  <Attribute id="supannEtuId" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.10"/>
+  <Attribute id="supannEtuId" name="urn:mace:cru.fr:attribute-def:supannEtuId"/>
+<!--
+  chaque valeur de cet attribut composite décrit une inscription pour un étudiant en liant entre elles des informations “élémentaires” (discipline, diplôme, établissement, etc.) que l'on pourra
+     également trouver en tant qu'attribut élémentaire. Chaque valeur de supannEtuInscription représente un “profil” pouvant être utilisé pour du contrôle d'accès à des ressources, de la personnalisation de
+     pages, etc. Un étudiant pourra avoir plusieurs profils en fonction de ses différentes inscriptions.
+ -->
+  <Attribute id="supannEtuInscription" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.30"/>
+  <Attribute id="supannEtuInscription" name="urn:mace:cru.fr:attribute-def:supannEtuInscription"/>
+<!--
+  correspond au “type d'enseignement” SISE dont les valeurs possibles sont : formation initiale, formation continue, formation à distance, etc.
+ -->
+  <Attribute id="supannEtuRegimeInscription" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.31"/>
+  <Attribute id="supannEtuRegimeInscription" name="urn:mace:cru.fr:attribute-def:supannEtuRegimeInscription"/>
+<!--  secteur disciplinaire de diplôme ou d'enseignement  -->
+  <Attribute id="supannEtuSecteurDisciplinaire" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.32"/>
+  <Attribute id="supannEtuSecteurDisciplinaire" name="urn:mace:cru.fr:attribute-def:supannEtuSecteurDisciplinaire"/>
+<!--  type ou catégorie du diplôme préparé  -->
+  <Attribute id="supannEtuTypeDiplome" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.33"/>
+  <Attribute id="supannEtuTypeDiplome" name="urn:mace:cru.fr:attribute-def:supannEtuTypeDiplome"/>
+<!--  entrée annuaire en “liste rouge”  -->
+  <Attribute id="supannListeRouge" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.1"/>
+  <Attribute id="supannListeRouge" name="urn:mace:cru.fr:attribute-def:supannListeRouge"/>
+<!--  adresse de courrier électronique privée  -->
+  <Attribute id="supannMailPerso" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.15"/>
+  <Attribute id="supannMailPerso" name="urn:mace:cru.fr:attribute-def:supannMailPerso"/>
+<!--  adresses de courrier électronique secondaires  -->
+  <Attribute id="supannAutreMail" name="urn:oid:1.3.6.1.4.1.7135.1.2.1.34"/>
+  <Attribute id="supannAutreMail" name="urn:mace:cru.fr:attribute-def:supannAutreMail"/>
+
+  <Attribute id="displayNameUDL" name="https://www.universite-lyon.fr/displayNameUDL"/>
 </Attributes>
