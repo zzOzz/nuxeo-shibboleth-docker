@@ -26,7 +26,7 @@
 
     <!-- The ApplicationDefaults element is where most of Shibboleth's SAML bits are defined. -->
     <ApplicationDefaults entityID="https://{{VIRTUAL_HOST}}/shibboleth"
-                         REMOTE_USER="urn:mace:shibboleth:2.0:resolver:ad mail eduPersonPrincipalName persistent-id targeted-id">
+                         REMOTE_USER="urn:mace:shibboleth:2.0:resolver:ad mail eduPersonPrincipalName persistent-id targeted-id supannEtablissement">
        <!--
         Controls session lifetimes, address checks, cookie handling, and the protocol handlers.
         You MUST supply an effectively unique handlerURL value for each of your applications.
