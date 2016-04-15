@@ -55,6 +55,7 @@ RUN a2ensite apache-sp
 RUN add-apt-repository ppa:ubuntu-lxc/lxd-stable
 RUN apt-get update && apt-get install -y \
     golang
+RUN echo "ok"
 RUN go get -u github.com/zzOzz/json-federation
 #//;go get golang.org/x/text/collate; go get golang.org/x/text/language;go install json-federation
 #VOLUME ["/etc/shibboleth/sp-cert.pem","/etc/shibboleth/sp-key.pem"]
