@@ -14,6 +14,9 @@
   ProxyPreserveHost On
   RequestHeader append nuxeo-virtual-host "https://{{VIRTUAL_HOST}}/"
 
+  ProxyPass /eds/federation/ http://localhost:8080/
+  ProxyPassReverse /eds/federation/ http://localhost:8080/
+
   #Redirect / /nuxeo/
   <Location "/nuxeo">
           AuthType shibboleth

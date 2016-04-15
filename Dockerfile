@@ -5,7 +5,7 @@ MAINTAINER Vincent Lombard <vincent.lombard@universite-lyon.fr>
 RUN locale-gen --no-purge en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
-
+ENV GOPATH /app
 # First install apt needed utility package
 RUN apt-get update && apt-get install -y \
     python-software-properties \
@@ -52,8 +52,12 @@ RUN a2enmod xml2enc
 RUN a2enmod proxy_http
 RUN a2dissite 000-default
 RUN a2ensite apache-sp
-
-VOLUME ["/etc/shibboleth/sp-cert.pem","/etc/shibboleth/sp-key.pem"]
+RUN add-apt-repository ppa:ubuntu-lxc/lxd-stable
+RUN apt-get update && apt-get install -y \
+    golang
+RUN go get -u github.com/zzOzz/json-federation
+#//;go get golang.org/x/text/collate; go get golang.org/x/text/language;go install json-federation
+#VOLUME ["/etc/shibboleth/sp-cert.pem","/etc/shibboleth/sp-key.pem"]
 
 EXPOSE 443
 ENTRYPOINT [ "supervisord" ]
