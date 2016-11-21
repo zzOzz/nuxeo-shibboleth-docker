@@ -7,7 +7,9 @@ ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV GOPATH /app
 # First install apt needed utility package
-RUN apt-get update && apt-get install -y \
+
+RUN set -x \
+&& apt-get update && apt-get install -y \
     python-software-properties \
     software-properties-common wget \
     sudo \
@@ -18,19 +20,13 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     apache2 \
-    supervisor
-
-RUN curl -k -O http://pkg.switch.ch/switchaai/SWITCHaai-swdistrib.asc
-RUN gpg --with-fingerprint  SWITCHaai-swdistrib.asc
-RUN apt-key add SWITCHaai-swdistrib.asc
-RUN echo 'deb http://pkg.switch.ch/switchaai/ubuntu trusty main' | sudo tee /etc/apt/sources.list.d/SWITCHaai-swdistrib.list > /dev/null
-RUN apt-get update && apt-get install -y \
+    supervisor\
+&& curl -k -O http://pkg.switch.ch/switchaai/SWITCHaai-swdistrib.asc\
+&& gpg --with-fingerprint  SWITCHaai-swdistrib.asc\
+&& apt-key add SWITCHaai-swdistrib.asc\
+&& echo 'deb http://pkg.switch.ch/switchaai/ubuntu trusty main' | sudo tee /etc/apt/sources.list.d/SWITCHaai-swdistrib.list > /dev/null\
+&& apt-get update && apt-get install -y \
     shibboleth
-
-#Ajout CA cert ActiveDirectory
-#ADD ./CERT-CA.cer /etc/ssl/certs/java/CERT-CA.cer
-#RUN (keytool -import -trustcacerts -alias ca-cert -file /etc/ssl/certs/java/CERT-CA.cer -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt)
-
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -40,26 +36,28 @@ ADD apache-sp.tmpl /etc/apache2/sites-available/apache-sp.tmpl
 RUN cat /etc/apache2/sites-available/apache-sp.tmpl |/tmp/mo >/etc/apache2/sites-available/apache-sp.conf
 ADD shibboleth2.tmpl /etc/shibboleth/shibboleth2.tmpl
 RUN cat /etc/shibboleth/shibboleth2.tmpl |/tmp/mo >/etc/shibboleth/shibboleth2.xml
-
 ADD attribute-map.xml /etc/shibboleth/attribute-map.xml
 #ADD sp-cert.pem /etc/shibboleth/sp-cert.pem
 #ADD sp-key.pem /etc/shibboleth/sp-key.pem
 
-RUN a2enmod ssl
-RUN a2enmod proxy
-RUN a2enmod headers
-RUN a2enmod xml2enc
-RUN a2enmod proxy_http
-RUN a2dissite 000-default
-RUN a2ensite apache-sp
-RUN add-apt-repository ppa:ubuntu-lxc/lxd-stable
-RUN apt-get update && apt-get install -y \
-    golang
-RUN echo "ok"
-RUN go get -u github.com/zzOzz/json-federation
+RUN set -x \
+&& a2enmod ssl\
+&& a2enmod proxy\
+&& a2enmod headers\
+&& a2enmod xml2enc\
+&& a2enmod proxy_http\
+&& a2dissite 000-default\
+&& a2ensite apache-sp\
+&& add-apt-repository ppa:ubuntu-lxc/lxd-stable\
+&& apt-get update && apt-get install -y \
+    golang\
+&& echo "ok"\
+&& go get -u github.com/zzOzz/json-federation
 #//;go get golang.org/x/text/collate; go get golang.org/x/text/language;go install json-federation
 #VOLUME ["/etc/shibboleth/sp-cert.pem","/etc/shibboleth/sp-key.pem"]
-
+ENV FEDERATION_METADATA_SIGNING_CERT=https://metadata.federation.renater.fr/certs/renater-metadata-signing-cert-2016.pem
+ENV FEDERATION_METADATA_URL=https://metadata.federation.renater.fr/renater/main/main-idps-renater-metadata.xml
+RUN wget -O /etc/ssl/certs/federation-metadata-cert.pem $FEDERATION_METADATA_SIGNING_CERT
 EXPOSE 443
 ENTRYPOINT [ "supervisord" ]
 
