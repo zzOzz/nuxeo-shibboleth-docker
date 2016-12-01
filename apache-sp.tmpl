@@ -1,3 +1,5 @@
+ServerName {{VIRTUAL_HOST}}
+Listen 0.0.0.0:443
 <VirtualHost *:443>
   ServerAdmin webmaster@localhost
   DocumentRoot /var/www/html
@@ -14,8 +16,8 @@
   ProxyPreserveHost On
   RequestHeader append nuxeo-virtual-host "https://{{VIRTUAL_HOST}}/"
 
-  ProxyPass /eds/federation/ http://localhost:8080/
-  ProxyPassReverse /eds/federation/ http://localhost:8080/
+  ProxyPass /eds/federation/ http://localhost:8081/
+  ProxyPassReverse /eds/federation/ http://localhost:8081/
 
   #Redirect / /nuxeo/
   <Location "/nuxeo">

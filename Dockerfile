@@ -57,6 +57,7 @@ RUN set -x \
 #VOLUME ["/etc/shibboleth/sp-cert.pem","/etc/shibboleth/sp-key.pem"]
 ENV FEDERATION_METADATA_SIGNING_CERT=https://metadata.federation.renater.fr/certs/renater-metadata-signing-cert-2016.pem
 ENV FEDERATION_METADATA_URL=https://metadata.federation.renater.fr/renater/main/main-idps-renater-metadata.xml
+ENV SHIB_CERT_PATH=/etc/shibboleth
 RUN wget -O /etc/ssl/certs/federation-metadata-cert.pem $FEDERATION_METADATA_SIGNING_CERT
 EXPOSE 443
 ENTRYPOINT [ "supervisord" ]

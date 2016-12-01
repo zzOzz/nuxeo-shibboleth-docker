@@ -78,7 +78,7 @@ clockSkew="180">
     <MetadataProvider type="XML" uri="{{FEDERATION_METADATA_URL}}" backingFilePath="federation-metadata.xml" reloadInterval="7200">
       <MetadataFilter type="Signature" certificate="/etc/ssl/certs/federation-metadata-cert.pem"/>
     </MetadataProvider>
-    <!-- <MetadataProvider type="XML" uri="{{IDP_METADATA_URL}}" backingFilePath="id-metadata.xml" reloadInterval="10"> 
+    <!-- <MetadataProvider type="XML" uri="{{IDP_METADATA_URL}}" backingFilePath="id-metadata.xml" reloadInterval="10">
     </MetadataProvider> -->
     <!-- Example of locally maintained metadata. -->
     <!--
@@ -103,7 +103,7 @@ clockSkew="180">
     <AttributeFilter type="XML" validate="true" path="attribute-policy.xml" />
 
     <!-- Simple file-based resolver for using a single keypair. -->
-    <CredentialResolver type="File" key="sp-key.pem" certificate="sp-cert.pem" />
+    <CredentialResolver type="File" key="{{SHIB_CERT_PATH}}/sp-key.pem" certificate="{{SHIB_CERT_PATH}}/sp-cert.pem" />
 
     <!--
         The default settings can be overridden by creating ApplicationOverride elements (see

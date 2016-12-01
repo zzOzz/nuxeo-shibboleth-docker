@@ -1,14 +1,14 @@
 nuxeo:
   hostname: nuxeo
-  # image: registry.universite-lyon.fr/nuxeodocker/nuxeo:7.10-HF17-1.0.0
-  build: ../nuxeo-docker/
+  image: registry.universite-lyon.fr/nuxeodocker/nuxeo:7.10-HF17-1.0.0
+  # build: ../nuxeo-docker/
   environment:
     VIRTUAL_HOST: docker.local
     PACKAGES: "nuxeo-drive shibboleth-authentication nuxeo-diff nuxeo-virtualnavigation nuxeo-dam nuxeo-spreadsheet nuxeo-template-rendering nuxeo-web-mobile nuxeo-platform-user-registration nuxeo-shibboleth-invitation"
     # PACKAGES2: "/platform/etc/data/marketplace/marketplace-multidomain-userworkspace-1.1.1-ISH-SNAPSHOT.zip"
     # PACKAGES2: "/platform/etc/data/conf/marketplace/marketplace-CustomLoginUDL-1.2.4-SNAPSHOT.zip"
     TEMPLATES: "default,drive,/platform/etc/data/conf/templates/shibboleth"
-    LAUNCHER_DEBUG: " -Dlog4j.configuration=file:/platform/etc/data/log4j.xml "
+    LAUNCHER_DEBUG: " -Dlog4j.configuration=file:/platform/etc/data/log4j.xml -Djvmcheck=nofail"
     DOCKER_HOST: ${HOSTNAME}
   volumes:
     - /Users/vincent/Documents/dev/java/nuxeo-udl/etc_data:/platform/etc/data
@@ -17,8 +17,8 @@ nuxeo:
     - 8080
 shibbolethsp:
   hostname: shib
-  # image: v20100/nuxeo-shibboleth-docker
-  build: ./
+  image: v20100/nuxeo-shibboleth-docker
+  # build: ./
   environment:
     VIRTUAL_HOST: nuxeo.universite-lyon.fr
     VIRTUAL_PROTO: https
